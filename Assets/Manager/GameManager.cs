@@ -228,6 +228,16 @@ public class GameManager : MonoBehaviour
                 User = user
             };
         }
+        else
+        {
+            var playerClone = Instantiate(NetworkRemotePlayerPrefab, spawnPoint.transform.position, Quaternion.identity);
+
+            playerClone.GetComponent<PlayerNetworkRemoteSync>().NetworkData = new RemotePlayerNetworkData
+            {
+                MatchId = matchId,
+                User = user
+            };
+        }
 
         // Add the player to the players array.
         players.Add(user.UserId, player);

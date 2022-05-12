@@ -51,7 +51,7 @@ public abstract class BaseCharacterController : MonoBehaviour
       protected virtual void ActiveIdle()
     {
         characterController = Character.Idle;
-       animator.Play("walk");
+       animator.Play("Idle");
      //   Debug.Log("vao 2");
 
     }
@@ -59,7 +59,7 @@ public abstract class BaseCharacterController : MonoBehaviour
     {
 
         characterController = Character.RUN;
-        animator.Play("run");
+        animator.Play("Run");
       //  Debug.Log("vao 1");
 
     }
@@ -69,7 +69,7 @@ public abstract class BaseCharacterController : MonoBehaviour
     {
 
         characterController = Character.JUMP;
-       animator.Play("jump");
+       animator.Play("Jump");
      //   Debug.Log("vao 3");
 
     }

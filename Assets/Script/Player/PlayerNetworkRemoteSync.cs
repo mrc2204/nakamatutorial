@@ -106,7 +106,7 @@ public class PlayerNetworkRemoteSync : MonoBehaviour
     private void OnReceivedMatchState(IMatchState matchState)
     {
         // If the incoming data is not related to this remote player, ignore it and return early.
-        if (matchState.UserPresence.SessionId != NetworkData.User.UserId)
+        if (matchState.UserPresence.UserId != NetworkData.User.UserId)
         {
             return;
         }
