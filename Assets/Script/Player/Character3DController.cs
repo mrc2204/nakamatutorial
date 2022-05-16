@@ -5,7 +5,8 @@ using UnityEngine;
 public  abstract class Character3DController : BaseCharacterController
 {
     Rigidbody rigi;
-    [SerializeField] private float TimeSmooth, rotationSpeed;
+
+    [SerializeField] protected float TimeSmooth, rotationSpeed;
     public float RunSpeed, JumpSpeed;
     protected float horizontalMovement, verticalMovement;
     
@@ -14,7 +15,7 @@ public  abstract class Character3DController : BaseCharacterController
 
     public Vector3 input;
     public Vector3 move;
-    private bool jump;
+    protected bool jump;
     private bool jumpHeld;
 
     protected override void Awake()
@@ -45,17 +46,9 @@ public  abstract class Character3DController : BaseCharacterController
     {
          input = new Vector3(horizontalMovement ,0,verticalMovement );
 
-        Quaternion toRotation = Quaternion.LookRotation(input, Vector3.up);
-        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-        // Debug.Log("ss " + transform.rotation + " toRo:" + toRotation);
-        /*        float tarGet = Mathf.Atan2(input.x,input.y);
-                Quaternion To = Quaternion.Euler(0, tarGet, 0);
-                transform.rotation = Quaternion.Lerp(transform.rotation, To, rotationSpeed * Time.deltaTime);*/
-
-
         CurrenPos = Vector3.SmoothDamp(CurrenPos, input, ref targetPosition, TimeSmooth);
-        move = new Vector3(CurrenPos.x * RunSpeed, 0, CurrenPos.z * RunSpeed);
-        rigi.velocity = move;
+        move = new Vector3(CurrenPos.x , 0, CurrenPos.z);
+        rigi.velocity = move * RunSpeed;
 
     }
 

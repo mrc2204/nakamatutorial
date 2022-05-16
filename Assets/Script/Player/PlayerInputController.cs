@@ -40,7 +40,9 @@ public class PlayerInputController : MonoBehaviour
     /// <summary>
     /// Called by Unity every frame.
     /// </summary>
-    private void Update()
+    /// 
+
+    private void FixedUpdate()
     {
         // Get the current input states.
         var horizontalInput = Input.GetAxis("Horizontal");

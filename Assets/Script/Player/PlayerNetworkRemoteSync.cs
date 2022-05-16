@@ -59,7 +59,9 @@ public class PlayerNetworkRemoteSync : MonoBehaviour
     /// <summary>
     /// Called by Unity after all Update calls have been made.
     /// </summary>
-    private void LateUpdate()
+    /// 
+ 
+    private void FixedUpdate()
     {
         if (!lerpPosition)
         {
@@ -119,6 +121,7 @@ public class PlayerNetworkRemoteSync : MonoBehaviour
                 break;
             case OpCodes.Input:
                 SetInputFromState(matchState.State);
+              
                 break;
             case OpCodes.Died:
                // playerMovementController.PlayDeathAnimation();
@@ -141,11 +144,13 @@ public class PlayerNetworkRemoteSync : MonoBehaviour
     private void SetInputFromState(byte[] state)
     {
         var stateDictionary = GetStateAsDictionary(state);
-        Debug.Log("=========> " + stateDictionary.ToJson());
+      //  Debug.Log("=========> " + stateDictionary.ToJson());
         playerMovementController.SetHorizontalMovement(float.Parse(stateDictionary["horizontalInput"]));
         playerMovementController.SetVeticalMovement(float.Parse(stateDictionary["verticalInput"]));
         playerMovementController.SetJump(bool.Parse(stateDictionary["jump"]));
         playerMovementController.SetJumpHeld(bool.Parse(stateDictionary["jumpHeld"]));
+       
+       
 
         //if (bool.Parse(stateDictionary["attack"]))
         //{
@@ -166,6 +171,7 @@ public class PlayerNetworkRemoteSync : MonoBehaviour
             float.Parse(stateDictionary["position.x"]),
             float.Parse(stateDictionary["position.y"]),
             float.Parse(stateDictionary["position.z"]));
+        Debug.Log(">> Position: " + stateDictionary.ToJson());
 
         // Begin lerping to the corrected position.
         lerpFromPosition = playerTransform.position;

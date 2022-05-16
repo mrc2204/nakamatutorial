@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     private IMatch currentMatch;
 
     private Transform[] spawnPoints;
-
+   
     private string localDisplayName;
     public static GameManager Instance;
 

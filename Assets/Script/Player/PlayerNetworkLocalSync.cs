@@ -54,8 +54,8 @@ public class PlayerNetworkLocalSync : MonoBehaviour
             // Send a network packet containing the player's velocity and position.
             gameManager.SendMatchState(
                 OpCodes.VelocityAndPosition,
-                MatchDataJson.VelocityAndPosition(playerRigidbody.velocity, playerTransform.position + Vector3.right * 2));
-        //    Debug.Log("Position >>>> " + MatchDataJson.VelocityAndPosition(playerRigidbody.velocity, playerTransform.position) + " <<<<<<<<<");
+                MatchDataJson.VelocityAndPosition(playerRigidbody.velocity, playerTransform.position + Vector3.forward  ));
+          //  Debug.Log("Position >>>> " + MatchDataJson.VelocityAndPosition(playerRigidbody.velocity, playerTransform.position) + " <<<<<<<<<");
 
             stateSyncTimer = StateFrequency;
         }

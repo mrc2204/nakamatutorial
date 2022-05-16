@@ -25,32 +25,8 @@ public class PlayerMovementController : Character3DController
     [HideInInspector]
     public UnityEvent CollidedWithProjectile;
 
-    [Header("Rendering")]
 
 
-    [Header("Movement")]
-
-
-    [Header("Jumping")]
- 
-
-    [Header("Ground Collision")]    
-
-
-    [Header("Projectile Collision")]
-
-
-
-//    private float horizontalMovement, verticalMovement;
-
-    private int direction = 1;
-    private bool jump;
-    private bool jumpHeld;
-    private bool isGrounded;
-    private float jumpTimer;
-    private float groundedTimer;
-    private float knockbackTimer = 0f;
-   
     protected override void OnRun()
     {
         base.OnRun();
@@ -100,7 +76,9 @@ public class PlayerMovementController : Character3DController
         // Joytick
         if (horizontalMovement == 0f && verticalMovement == 0f) return false;
 
-      ///  Direction = new Vector3(input.x, 0, input.z); 
+        Quaternion toRotation = Quaternion.LookRotation(input, Vector3.up);
+        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+        ///  Direction = new Vector3(input.x, 0, input.z); 
         return true;
     }
    

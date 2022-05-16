@@ -27,7 +27,8 @@ public abstract class BaseCharacterController : MonoBehaviour
     }
 
     // Update is called once per frame
-    protected void Update()
+ 
+    protected void FixedUpdate()
     {
         switch (characterController)
         {
