@@ -45,8 +45,7 @@ public class PlayerMovementController : Character3DController
     }
  
     protected override void OnIdle()
-    {   
-
+    {
         if (Mathf.Abs(horizontalMovement) != 0 || Mathf.Abs(verticalMovement) != 0)
         {
             ActiveRun();
@@ -69,16 +68,11 @@ public class PlayerMovementController : Character3DController
     }
     bool ChangeDirection()
     {
-        /*
-                if (JoytickMoveController.Intansce.direction.x == 0f && JoytickMoveController.Intansce.direction.y == 0f) return false;
-
-                Direction = new Vector3(JoytickMoveController.Intansce.direction.x , 0, JoytickMoveController.Intansce.direction.y);*/
-        // Joytick
+       
         if (horizontalMovement == 0f && verticalMovement == 0f) return false;
 
         Quaternion toRotation = Quaternion.LookRotation(input, Vector3.up);
         transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-        ///  Direction = new Vector3(input.x, 0, input.z); 
         return true;
     }
    

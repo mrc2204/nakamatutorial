@@ -36,7 +36,7 @@ public class PlayerNetworkRemoteSync : MonoBehaviour
     private PlayerMovementController playerMovementController;
     private Rigidbody playerRigidbody;
     private Transform playerTransform;
-    private float lerpTimer;
+    public float lerpTimer;
     private Vector3 lerpFromPosition;
     private Vector3 lerpToPosition;
     private bool lerpPosition;
@@ -166,7 +166,7 @@ public class PlayerNetworkRemoteSync : MonoBehaviour
     {
         var stateDictionary = GetStateAsDictionary(state);
 
-      //  playerRigidbody.velocity = new Vector3(float.Parse(stateDictionary["velocity.x"]), float.Parse(stateDictionary["velocity.y"]), float.Parse(stateDictionary["velocity.z"]));
+        playerRigidbody.velocity = new Vector3(float.Parse(stateDictionary["velocity.x"]), float.Parse(stateDictionary["velocity.y"]), float.Parse(stateDictionary["velocity.z"]));
         var position = new Vector3(
             float.Parse(stateDictionary["position.x"]),
             float.Parse(stateDictionary["position.y"]),

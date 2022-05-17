@@ -28,7 +28,7 @@ public class PlayerNetworkLocalSync : MonoBehaviour
 
     private GameManager gameManager;
     private PlayerInputController playerInputController;
-    private Rigidbody playerRigidbody;
+    private CharacterController playerRigidbody;
     private Transform playerTransform;
     private float stateSyncTimer;
 
@@ -39,7 +39,7 @@ public class PlayerNetworkLocalSync : MonoBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         playerInputController = GetComponent<PlayerInputController>();
-        playerRigidbody = GetComponentInChildren<Rigidbody>();
+        playerRigidbody = GetComponentInChildren<CharacterController>();
         playerTransform = playerRigidbody.GetComponent<Transform>();
     }
 

@@ -18,6 +18,7 @@ public abstract class BaseCharacterController : MonoBehaviour
     }
     public Character characterController = Character.Idle;
 
+    protected float hori, verti;
 
     Animator animator;
     protected virtual void Awake()
@@ -28,8 +29,10 @@ public abstract class BaseCharacterController : MonoBehaviour
 
     // Update is called once per frame
  
-    protected void FixedUpdate()
+    protected void Update()
     {
+        hori = Input.GetAxis("Horizontal");
+        verti = Input.GetAxis("Vertical");
         switch (characterController)
         {
       
