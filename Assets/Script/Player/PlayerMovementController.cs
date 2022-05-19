@@ -46,6 +46,7 @@ public class PlayerMovementController : Character3DController
  
     protected override void OnIdle()
     {
+        base.OnIdle();
         if (Mathf.Abs(horizontalMovement) != 0 || Mathf.Abs(verticalMovement) != 0)
         {
             ActiveRun();

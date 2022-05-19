@@ -44,7 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e46417fe40cdaae4f9c960699c3a15db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LerpTime: 0.05
+  LerpTime: 0.01
+  lerpTimer: 0
+  Distance: 0
+  lastSynchronizationTime: 0.01
 --- !u!1001 &6313640968632608836
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114,10 +117,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6352663089843120377, guid: 9f69f4c677efa79488dc9973db40c03c,
         type: 3}
+      propertyPath: RunSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352663089843120377, guid: 9f69f4c677efa79488dc9973db40c03c,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4227213463216034456, guid: 9f69f4c677efa79488dc9973db40c03c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9f69f4c677efa79488dc9973db40c03c, type: 3}
 --- !u!4 &1420006294895114983 stripped
 Transform:

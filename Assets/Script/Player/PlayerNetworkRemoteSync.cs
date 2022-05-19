@@ -34,13 +34,20 @@ public class PlayerNetworkRemoteSync : MonoBehaviour
 
     private GameManager gameManager;
     private PlayerMovementController playerMovementController;
-    private Rigidbody playerRigidbody;
+    private CharacterController playerRigidbody;
     private Transform playerTransform;
     public float lerpTimer;
     private Vector3 lerpFromPosition;
     private Vector3 lerpToPosition;
-    private bool lerpPosition;
+    private Vector3 ToVelocity;
+    private Vector3 syncEndPosition;
+    private Vector3 syncStartPosition;
 
+    private bool lerpPosition;
+    [SerializeField]
+    private float Distance;
+    [SerializeField]
+    private float lastSynchronizationTime;
     /// <summary>
     /// Called by Unity when this GameObject starts.
     /// </summary>
@@ -49,41 +56,39 @@ public class PlayerNetworkRemoteSync : MonoBehaviour
         // Cache a reference to the required components.
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         playerMovementController = GetComponentInChildren<PlayerMovementController>();
-        playerRigidbody = GetComponentInChildren<Rigidbody>();
-        playerTransform = playerRigidbody.GetComponent<Transform>();
+        playerRigidbody = GetComponentInChildren<CharacterController>();
+        playerTransform = transform.GetComponent<Transform>();
 
         // Add an event listener to handle incoming match state data.
         gameManager.NakamaConnection.Socket.ReceivedMatchState += EnqueueOnReceivedMatchState;
     }
 
-    /// <summary>
-    /// Called by Unity after all Update calls have been made.
-    /// </summary>
-    /// 
+
  
-    private void FixedUpdate()
+    private void Update()
     {
+        
+
+
         if (!lerpPosition)
         {
             return;
         }
 
         // Interpolate the player's position based on the lerp timer progress.
-        playerTransform.position = Vector3.Lerp(lerpFromPosition, lerpToPosition, lerpTimer / LerpTime);
+        playerTransform.position = Vector3.MoveTowards(syncStartPosition, syncEndPosition, lerpTimer/LerpTime);
         lerpTimer += Time.deltaTime;
 
-        // If we have reached the end of the lerp timer, explicitly force the player to the last known correct position.
         if (lerpTimer >= LerpTime)
         {
             playerTransform.position = lerpToPosition;
-            lerpPosition = false;
         }
     }
 
-    /// <summary>
-    /// Called when this GameObject is being destroyed.
-    /// </summary>
-    private void OnDestroy()
+        /// <summary>
+        /// Called when this GameObject is being destroyed.
+        /// </summary>
+        private void OnDestroy()
     {
         if (gameManager != null)
         {
@@ -149,13 +154,10 @@ public class PlayerNetworkRemoteSync : MonoBehaviour
         playerMovementController.SetVeticalMovement(float.Parse(stateDictionary["verticalInput"]));
         playerMovementController.SetJump(bool.Parse(stateDictionary["jump"]));
         playerMovementController.SetJumpHeld(bool.Parse(stateDictionary["jumpHeld"]));
-       
-       
 
-        //if (bool.Parse(stateDictionary["attack"]))
-        //{
-        //    playerWeaponController.Attack();
-        //}
+      /*  Vector3 move = new Vector3(playerMovementController.horizontalMovement = float.Parse(stateDictionary["horizontalInput"]),0,playerMovementController.verticalMovement = float.Parse(stateDictionary["verticalInput"]));
+        test = move;*/
+    
     }
 
     /// <summary>
@@ -166,17 +168,25 @@ public class PlayerNetworkRemoteSync : MonoBehaviour
     {
         var stateDictionary = GetStateAsDictionary(state);
 
-        playerRigidbody.velocity = new Vector3(float.Parse(stateDictionary["velocity.x"]), float.Parse(stateDictionary["velocity.y"]), float.Parse(stateDictionary["velocity.z"]));
+    var test  =  playerRigidbody.velocity;
         var position = new Vector3(
             float.Parse(stateDictionary["position.x"]),
             float.Parse(stateDictionary["position.y"]),
             float.Parse(stateDictionary["position.z"]));
-        Debug.Log(">> Position: " + stateDictionary.ToJson());
+        
+    test = new Vector3(float.Parse(stateDictionary["velocity.x"]), float.Parse(stateDictionary["velocity.y"]), float.Parse(stateDictionary["velocity.z"]));
 
-        // Begin lerping to the corrected position.
-        lerpFromPosition = playerTransform.position;
-        lerpToPosition = position;
-        lerpTimer = 0;
-        lerpPosition = true;
+
+
+/*        lerpTimer = 0f;
+        LerpTime = Time.time - lastSynchronizationTime;
+        lastSynchronizationTime = Time.time;*/
+
+        syncStartPosition = playerTransform.position;
+        lerpFromPosition = position;
+        ToVelocity = test;
+        syncEndPosition = lerpFromPosition + ToVelocity;
+
+
     }
 }

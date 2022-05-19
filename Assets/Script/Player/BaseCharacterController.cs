@@ -63,7 +63,7 @@ public abstract class BaseCharacterController : MonoBehaviour
     {
 
         characterController = Character.RUN;
-        animator.Play("Run");
+        animator.Play("Walk");
       //  Debug.Log("vao 1");
 
     }

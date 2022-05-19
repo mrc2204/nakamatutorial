@@ -132,10 +132,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController: 1
   TimeSmooth: 0.2
-  rotationSpeed: 10
-  RunSpeed: 5
+  rotationSpeed: 8
+  RunSpeed: 20
   JumpSpeed: 2
   Gravity: 2
+  horizontalMovement: 0
+  verticalMovement: 0
   CurrenPos: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
   input: {x: 0, y: 0, z: 0}

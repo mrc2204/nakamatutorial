@@ -71,8 +71,7 @@ public class GameManager : MonoBehaviour
         // Connect to the Nakama server.
         await NakamaConnection.Connect();
         localUser = NakamaConnection.Session.UserId;
-        // Enable the Find A Match button on the main menu.
-        //MainMenu.GetComponent<MainMenu>().EnableFindMatchButton();
+
 
         // Setup network event handlers.
         NakamaConnection.Socket.ReceivedMatchmakerMatched += m => mainThread.Enqueue(() => OnReceivedMatchmakerMatched(m));
@@ -84,8 +83,7 @@ public class GameManager : MonoBehaviour
         currentMatch = await NakamaConnection.Socket.JoinMatchAsync("b6c4c321-378a-4a18-9cd6-1e1352e3a931.nakama");
         foreach (var user in currentMatch.Presences)
         {
-            Debug.Log("ss: "+user.UserId);
-            Debug.Log("ssss: "+ localUser);
+
             if (user.UserId == localUser)
                 continue;
             SpawnPlayer(currentMatch.Id, user);
@@ -230,7 +228,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
- /*           var playerClone = Instantiate(NetworkRemotePlayerPrefab, spawnPoint.transform.position, Quaternion.identity);
+      /*      var playerClone = Instantiate(NetworkRemotePlayerPrefab, spawnPoint.transform.position, Quaternion.identity);
 
             playerClone.GetComponent<PlayerNetworkRemoteSync>().NetworkData = new RemotePlayerNetworkData
             {

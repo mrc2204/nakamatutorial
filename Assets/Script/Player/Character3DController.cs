@@ -8,7 +8,7 @@ public  abstract class Character3DController : BaseCharacterController
     CharacterController character;
     [SerializeField] protected float TimeSmooth, rotationSpeed;
     public float RunSpeed, JumpSpeed, Gravity;
-    protected float horizontalMovement, verticalMovement;
+    public float horizontalMovement, verticalMovement;
     
     [SerializeField] private Vector3 CurrenPos;
     [SerializeField] private Vector3 targetPosition;
@@ -21,7 +21,6 @@ public  abstract class Character3DController : BaseCharacterController
     protected override void Awake()
     {
         character = GetComponent<CharacterController>();
-      //  rigi = GetComponent<Rigidbody>();
         base.Awake();
     }
     public override Vector3 Direction
@@ -42,14 +41,23 @@ public  abstract class Character3DController : BaseCharacterController
 
     }
 
+    protected override void OnIdle()
+    {
+          if(!character.isGrounded)
+        {
+            move.y -= Gravity * Time.deltaTime;
+            character.Move(move * RunSpeed * Time.deltaTime);
 
+        }
+
+    }
     protected override void OnRun()
     {
    
 
         if (character.isGrounded)
         {
-          input = new Vector3(horizontalMovement, 0, verticalMovement);
+             input = new Vector3(horizontalMovement, 0, verticalMovement);
             CurrenPos = Vector3.SmoothDamp(CurrenPos, input, ref targetPosition, TimeSmooth);
             move = new Vector3(CurrenPos.x, 0, CurrenPos.z);
             move.y = 0;
@@ -61,14 +69,11 @@ public  abstract class Character3DController : BaseCharacterController
         }
         character.Move(move * RunSpeed * Time.deltaTime);
 
-        //  rigi.velocity = move;
 
     }
-
     protected override void ActiveJump()
     {
         base.ActiveJump();
-      //  rigi.velocity += new Vector3(0f, transform.up.y * JumpSpeed, 0f);
     }
 
 
